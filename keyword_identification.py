@@ -13,7 +13,7 @@ def identification(data):
         elif data[i][0] == "mod" or data[i][0] == "Mod" or data[i][0] == "MOD":
             data[i][1] = "keyword_mod"
         elif data[i][0] in keywords:
-            data[i][1] = "keyword"
+            return False
 
     return data
 
