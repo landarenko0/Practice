@@ -1,0 +1,1 @@
+repeat func($ABC div min) until myvar <= -10;
