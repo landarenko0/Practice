@@ -13,15 +13,13 @@ def identification(data):
         elif data[i][0] == "mod" or data[i][0] == "Mod" or data[i][0] == "MOD":
             data[i][1] = "keyword_mod"
         elif data[i][0] in keywords:
-            return False
+            return 0
 
     return data
 
 
-lexeme = identification([['repeatuntil', 'identifier'], ['repeat', 'identifier'], ['uu', 'identifier'],
-                         ['until', 'identifier'], [';', 'semicolon'], ['<', 'less'], ['>', 'more'], ['=', 'equal'],
-                         ['$', 'dollar_sign'], ['ab', 'hex'], ['bc', 'identifier'], ['926', 'integer'],
-                         ['913', 'integer'], ['r', 'identifier'], ['myfunc', 'identifier'], ['(', 'bracket1'],
-                         ['+', 'plus-minus'], ['-', 'plus-minus'], ['*', 'multiplication'], ['div', 'identifier'],
-                         ['mod', 'identifier']])
-print(lexeme)
+#lexeme = identification([['repeat', 'identifier'], ['func', 'identifier'], ['(', 'bracket1'], ['$', 'dollar_sign'],
+#                         ['123D', 'hex'], ['div', 'identifier'], ['min', 'identifier'], [')', 'bracket2'],
+#                         ['until', 'identifier'], ['St', 'identifier'], ['<', 'less'], ['-', 'plus-minus'],
+#                         ['1', 'integer'], [';', 'semicolon']])
+#print(lexeme)
