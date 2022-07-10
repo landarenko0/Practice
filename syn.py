@@ -62,6 +62,7 @@ def syntax(data):
             state = "semicolon"
         elif state == "semicolon":
             accept = False
+            break
         else:
             accept = False
             break
