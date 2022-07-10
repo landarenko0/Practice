@@ -9,12 +9,19 @@ keywords = ["and", "array", "begin", "case", "const", "div", "do", "downto", "el
 
 
 def linear_search(word):
-    """ Линейный поиск. Выполняет поиск по списку ключевых слов. """
+    """ Линейный поиск. Выполняет линейный поиск по списку ключевых слов. """
 
     for i in range(len(keywords)):
-        if word.lower() == keywords[i]:
+        if word == "repeat" or word == "Repeat" or word == "REPEAT":
             return 1
-    return 0
+        elif word == "until" or word == "Until" or word == "UNTIL":
+            return 2
+        elif word == "div" or word == "Div" or word == "DIV":
+            return 3
+        elif word == "mod" or word == "Mod" or word == "MOD":
+            return 4
+        elif word.lower() == keywords[i]:
+            return 0
 
 
 def identification(data):
@@ -22,17 +29,16 @@ def identification(data):
     идентификатору, либо сообщает, что заданный идентификатор не является ключевым словом языка Pascal. """
 
     for i in range(len(data)):
-        if data[i][0] == "repeat" or data[i][0] == "Repeat" or data[i][0] == "REPEAT":
+        if linear_search(data[i][0]) == 1:
             data[i][1] = "keyword_repeat"
-        elif data[i][0] == "until" or data[i][0] == "Until" or data[i][0] == "UNTIL":
+        elif linear_search(data[i][0]) == 2:
             data[i][1] = "keyword_until"
-        elif data[i][0] == "div" or data[i][0] == "Div" or data[i][0] == "DIV":
+        elif linear_search(data[i][0]) == 3:
             data[i][1] = "keyword_div"
-        elif data[i][0] == "mod" or data[i][0] == "Mod" or data[i][0] == "MOD":
+        elif linear_search(data[i][0]) == 4:
             data[i][1] = "keyword_mod"
-        else:
-            if linear_search(data[i][0]) == 1:
-                return 0
+        elif linear_search(data[i][0]) == 0:
+            return 0
 
     return data
 
