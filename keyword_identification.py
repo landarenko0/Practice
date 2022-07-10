@@ -1,9 +1,16 @@
+""" keywords_identification.py
+    Блок идентификации ключевых слов. устанавливает, какое из ключевых слов языка Pascal соответствует заданному
+    идентификатору, либо сообщает, что заданный идентификатор не является ключевым словом языка Pascal.
+    (с) Ландаренко Н. А. (группа КЭ-103) """
+
 keywords = ["and", "array", "begin", "case", "const", "div", "do", "downto", "else", "end", "file", "for",
             "function", "goto", "if", "in", "label", "mod", "nil", "not", "of", "or", "packed", "procedure",
             "program", "record", "repeat", "set", "then", "to", "type", "until", "var", "while", "with"]
 
 
 def linear_search(word):
+    """ Линейный поиск. Выполняет поиск по списку ключевых слов. """
+
     for i in range(len(keywords)):
         if word.lower() == keywords[i]:
             return 1
@@ -11,6 +18,9 @@ def linear_search(word):
 
 
 def identification(data):
+    """ Блок идентификации ключевых слов. Устанавливает, какое из ключевых слов языка Pascal соответствует заданному
+    идентификатору, либо сообщает, что заданный идентификатор не является ключевым словом языка Pascal. """
+
     for i in range(len(data)):
         if data[i][0] == "repeat" or data[i][0] == "Repeat" or data[i][0] == "REPEAT":
             data[i][1] = "keyword_repeat"

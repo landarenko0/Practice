@@ -1,3 +1,7 @@
+""" program.py
+    Головной модуль. Вызывает остальные модули.
+    (с) Ландаренко Н. А. (группа КЭ-103) """
+
 from transliterator import transliteration
 from lex import lexical
 from keyword_identification import identification
@@ -6,6 +10,8 @@ import file
 
 
 def Main():
+    """ Головной модуль. Вызывает остальные модули. """
+
     chain = file.input_data()
 
     lexeme_chain_trans = transliteration(chain)
