@@ -10,6 +10,7 @@ def syntax(data):
     i = 0
     accept = True
 
+    # Проходим по всем состояниям обрабатывающего автомата синтаксического блока.
     while i < len(data):
         if data[i][1] == "keyword_repeat" and state == "start":
             state = "repeat"

@@ -9,6 +9,7 @@ def transliteration(chain):
 
     lexeme_chain = []
 
+    # Каждому символу присваивается свой класс. Если встречен неизвестный символ, возвращаем 0.
     for i in range(len(chain)):
         symbol = chain[i]
         symbol_class = []
