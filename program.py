@@ -6,13 +6,15 @@ from transliterator import transliteration
 from lex import lexical
 from keyword_identification import identification
 from syn import syntax
-import file
 
 
 def Main():
     """ Головной модуль. Вызывает остальные модули. """
 
-    chain = file.input_data()
+    file = open("INPUT.txt", "r")
+    chain = file.read()
+
+    file = open("OUTPUT.txt", "w")
 
     lexeme_chain_trans = transliteration(chain)
 
@@ -22,7 +24,8 @@ def Main():
     else:
         print("Transliteration unsuccessful. Chain rejected")
         result = "REJECT"
-        file.output_data(result)
+        file.write(result)
+        file.close()
         return 0
 
     if lexeme_chain_lex != 0:
@@ -31,7 +34,8 @@ def Main():
     else:
         print("Lexical block is unsuccessful. Chain rejected")
         result = "REJECT"
-        file.output_data(result)
+        file.write(result)
+        file.close()
         return 0
 
     if lexeme_chain_key != 0:
@@ -40,10 +44,12 @@ def Main():
     else:
         print("Keyword identification block is unsuccessful. Chain rejected")
         result = "REJECT"
-        file.output_data(result)
+        file.write(result)
+        file.close()
         return 0
 
-    file.output_data(result)
+    file.write(result)
+    file.close()
 
 
 Main()
