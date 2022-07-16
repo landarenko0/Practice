@@ -21,33 +21,28 @@ def lexical(data):
     current_lexeme = ""
     lexeme_class = ""
     state = "space"
+
+    # Проходим по всем состояниям обрабатывающего автомата лексического блока.
     for i in range(len(data)):
         if data[i][1] == "letter" and state == "space":
+            # Если предыдущая лексема не является пустой, записываем её в список lexeme_chain.
             if not isEmpty(current_lexeme):
                 lexeme_chain.append([current_lexeme, lexeme_class])
             current_lexeme = ""
             current_lexeme += data[i][0]
-            if lexeme_class == "dollar_sign":
-                lexeme_class = "hex"
-            else:
-                lexeme_class = "identifier"
+            lexeme_class = "identifier"
             state = "identifier"
         elif data[i][1] == "number" and state == "space":
             if not isEmpty(current_lexeme):
                 lexeme_chain.append([current_lexeme, lexeme_class])
             current_lexeme = ""
             current_lexeme += data[i][0]
-            if lexeme_class == "dollar_sign":
-                lexeme_class = "hex"
-                state = "identifier"
-            else:
-                lexeme_class = "integer"
-                state = "integer"
+            lexeme_class = "integer"
+            state = "integer"
         elif data[i][1] == "semicolon":
             if not isEmpty(current_lexeme):
                 lexeme_chain.append([current_lexeme, lexeme_class])
-            current_lexeme = ""
-            current_lexeme += ";"
+            current_lexeme = ";"
             lexeme_class = "semicolon"
             state = "space"
         elif data[i][1] == "plus-minus":
@@ -60,52 +55,47 @@ def lexical(data):
         elif data[i][1] == "multiplication":
             if not isEmpty(current_lexeme):
                 lexeme_chain.append([current_lexeme, lexeme_class])
-            current_lexeme = ""
-            current_lexeme += "*"
+            current_lexeme = "*"
             lexeme_class = "multiplication"
             state = "space"
-        elif data[i][1] == "space":
+        elif data[i][1] == "space" and (state == "space" or state == "identifier" or state == "integer"):
             state = "space"
+        elif data[i][1] == "space" and state == "dollar_sign":
+            state = "dollar_sign"
         elif data[i][1] == "bracket1":
             if not isEmpty(current_lexeme):
                 lexeme_chain.append([current_lexeme, lexeme_class])
-            current_lexeme = ""
-            current_lexeme += "("
+            current_lexeme = "("
             lexeme_class = "bracket1"
             state = "space"
         elif data[i][1] == "bracket2":
             if not isEmpty(current_lexeme):
                 lexeme_chain.append([current_lexeme, lexeme_class])
-            current_lexeme = ""
-            current_lexeme += ")"
+            current_lexeme = ")"
             lexeme_class = "bracket2"
             state = "space"
         elif data[i][1] == "dollar_sign":
             if not isEmpty(current_lexeme):
                 lexeme_chain.append([current_lexeme, lexeme_class])
-            current_lexeme = ""
-            current_lexeme += "$"
+            current_lexeme = "$"
             lexeme_class = "dollar_sign"
-            state = "space"
+            state = "dollar_sign"
         elif data[i][1] == "more":
             if not isEmpty(current_lexeme):
                 lexeme_chain.append([current_lexeme, lexeme_class])
-            current_lexeme = ""
-            current_lexeme += ">"
+            current_lexeme = ">"
             lexeme_class = "more"
             state = "space"
         elif data[i][1] == "less":
             if not isEmpty(current_lexeme):
                 lexeme_chain.append([current_lexeme, lexeme_class])
-            current_lexeme = ""
-            current_lexeme += "<"
+            current_lexeme = "<"
             lexeme_class = "less"
             state = "space"
         elif data[i][1] == "equal":
             if not isEmpty(current_lexeme):
                 lexeme_chain.append([current_lexeme, lexeme_class])
-            current_lexeme = ""
-            current_lexeme += "="
+            current_lexeme = "="
             lexeme_class = "equal"
             state = "space"
         elif (data[i][1] == "letter" or data[i][1] == "number") and state == "identifier":
@@ -114,6 +104,13 @@ def lexical(data):
             return 0
         elif data[i][1] == "number" and state == "integer":
             current_lexeme += data[i][0]
+        elif (data[i][1] == "letter" or data[i][1] == "number") and state == "dollar_sign":
+            if not isEmpty(current_lexeme):
+                lexeme_chain.append([current_lexeme, lexeme_class])
+            current_lexeme = ""
+            current_lexeme += data[i][0]
+            lexeme_class = "hex"
+            state = "identifier"
 
     if not isEmpty(current_lexeme):
         lexeme_chain.append([current_lexeme, lexeme_class])
